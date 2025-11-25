@@ -9,7 +9,7 @@
 <body>
   <header>
     <h1>HiveAI</h1>
-    <p>Query Gemini, ChatGPT, Amazon Bedrock, DeepAI, Perplexity, and Claude all at once.</p>
+    <p>Fan out across Amazon Bedrock models and see everything summarized in one place.</p>
   </header>
   <main>
     <section class="panel">
@@ -20,10 +20,13 @@
         <button type="submit">Send to selected engines</button>
       </form>
     </section>
-    <section id="results" class="results" aria-live="polite"></section>
+    <section class="results-grid">
+      <div id="summary" class="results" aria-live="polite"></div>
+      <div id="results" class="results" aria-live="polite"></div>
+    </section>
   </main>
   <footer>
-    <p>Configure API keys via environment variables before starting the server.</p>
+    <p>Configure AWS credentials and Bedrock access before starting the server.</p>
   </footer>
   <script src="script.js"></script>
 </body>

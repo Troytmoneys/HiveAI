@@ -22,8 +22,8 @@ function renderProviders(providers) {
 
     if (!provider.available) {
       const badge = document.createElement('span');
-      badge.className = 'badge';
-      badge.textContent = 'Configure key';
+      badge.className = 'badge muted';
+      badge.textContent = 'Configure AWS creds';
       wrapper.append(checkbox, name, badge);
     } else {
       wrapper.append(checkbox, name);
@@ -31,6 +31,29 @@ function renderProviders(providers) {
 
     container.appendChild(wrapper);
   });
+}
+
+function renderSummary(summary) {
+  const container = document.getElementById('summary');
+  container.innerHTML = '';
+  if (!summary) return;
+
+  const card = document.createElement('article');
+  card.className = 'response-card summary-card';
+
+  const header = document.createElement('header');
+  const title = document.createElement('h3');
+  title.textContent = 'Hive Summary';
+  const badge = document.createElement('span');
+  badge.className = 'badge';
+  badge.textContent = summary.error ? 'Error' : 'OK';
+  header.append(title, badge);
+
+  const body = document.createElement('p');
+  body.textContent = summary.error ? summary.error : summary.content;
+
+  card.append(header, body);
+  container.appendChild(card);
 }
 
 function renderResults(results) {
@@ -43,7 +66,7 @@ function renderResults(results) {
 
     const header = document.createElement('header');
     const title = document.createElement('h3');
-    title.textContent = result.provider.toUpperCase();
+    title.textContent = result.name || result.provider.toUpperCase();
     const badge = document.createElement('span');
     badge.className = 'badge';
     badge.textContent = result.error ? 'Error' : 'OK';
@@ -58,8 +81,10 @@ function renderResults(results) {
 }
 
 function showLoading() {
-  const container = document.getElementById('results');
-  container.innerHTML = '<p class="loading">Waiting for responses...</p>';
+  const results = document.getElementById('results');
+  const summary = document.getElementById('summary');
+  summary.innerHTML = '';
+  results.innerHTML = '<p class="loading">Waiting for responses...</p>';
 }
 
 async function setup() {
@@ -82,6 +107,7 @@ async function setup() {
     });
 
     const data = await res.json();
+    renderSummary(data.summary);
     renderResults(data.results || []);
   });
 }
