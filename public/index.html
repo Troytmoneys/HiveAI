@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HiveAI | Multi-Engine Chat</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>HiveAI</h1>
+    <p>Query Gemini, ChatGPT, Amazon Bedrock, DeepAI, Perplexity, and Claude all at once.</p>
+  </header>
+  <main>
+    <section class="panel">
+      <div class="providers" id="providers"></div>
+      <form id="chat-form">
+        <label for="prompt">Ask the hive</label>
+        <textarea id="prompt" name="prompt" placeholder="Ask anything..." required></textarea>
+        <button type="submit">Send to selected engines</button>
+      </form>
+    </section>
+    <section id="results" class="results" aria-live="polite"></section>
+  </main>
+  <footer>
+    <p>Configure API keys via environment variables before starting the server.</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
